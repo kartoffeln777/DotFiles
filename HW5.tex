@@ -1,0 +1,409 @@
+% This is a Latex tutorial document
+
+\documentclass{article}
+% \usepackage[letterpaper, landscape, margin=2in]{geometry}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{empheq}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{cancel}
+\usepackage{enumitem}
+\graphicspath{ {./../../../Documents/GradSchool/MECE6374/HW5/} }
+\makeatletter
+\def\@seccntformat#1{%
+  \expandafter\ifx\csname c@#1\endcsname\c@section\else
+  \csname the#1\endcsname\quad
+  \fi}
+\makeatother
+\title{MECE 6374: Fun Work \#5}
+\date{\today}
+\author{Eric Eldridge (1561585)}
+\begin{document}
+
+  % \setlength{\abovedisplayshortskip}{3pt}
+  % \setlength{\belowdisplayshortskip}{3pt}
+  % \setlength{\abovedisplayskip}{3pt}
+  % \setlength{\belowdisplayskip}{3pt}
+
+  \maketitle
+
+  \section{Problem 1}
+
+  Examine the stability (local or global, asymptotic or not) of the origin (0,0)
+  of the system
+  \begin{align*}
+    \dot{x}_1 &= x_2 \\
+    \dot{x}_2 &= -4x_1 -x_2^5
+  \end{align*}
+
+  \noindent Using a Lyapunov function candidate of $V(x_1,x_2)=ax_1^2+bx_2^2$
+  and LaSalle's Theorem. \newline \newline
+
+  \noindent \textit{Solution} \newline \newline
+
+  We can see that the Lyapunov function candidate, V(x) is globally positive
+  definite and radially unbounded. Now, we want to look at the behavior of $\dot{V}(x_1,x_2)$.
+
+  \begin{align*}
+    V(x_1,x_2) &= ax_1^2 + bx_2^2 \\
+    \dot{V}(x_1,x_2) &= 2ax_1\dot{x}_1 + 2bx_2\dot{x}_2 \\
+    \dot{V}(x_1,x_2) &= 2ax_1x_2 + 2bx_2(-4x_1 -x_2^5) \\
+    \dot{V}(x_1,x_2) &= 2ax_1x_2 - 8bx_1x_2 -2bx_2^6 
+  \end{align*}
+
+  If we let $a = 4b$ s.t. $a,b >0$, then
+
+  \begin{align*}
+    \dot{V}(x_1,x_2) &= -2bx_2^6
+  \end{align*}
+
+  We can see that $\dot{V}(x_1,x_2)$ is globally negative definite. Since
+  $V(x_1,x_2)$ is globally positive definite and radially unbounded, we can say
+  that \textbf{the system is globally asymptotically stable at the point (0,0)}.
+
+  \newpage
+
+  \section{Problem 2}
+
+  Consider the following vibrating system with nonlinear damping
+  \begin{align*}
+    \ddot{y}+d\dot{y}^3+ky=0
+  \end{align*}
+  where $d,k>0$. Consider the Lyapunov function candidate that corresponds to
+  the total system energy
+  \begin{align*}
+    V(y,\dot{y})=\frac{1}{2}(ky^2+\dot{y}^2)
+  \end{align*}
+  Is the system locally stable, locally asymptotically stable, globally stable,
+  or globally asymptotically stable? Can you use LaSalle's Theorem to to obtain
+  stronger stability results? \newline \newline
+
+  \noindent \textit{Solution} \newline \newline
+
+  First, we will put our system in the state-space form. Let $x_1 = y$, $x_2 =
+  \dot{y}$. This gives us:
+  \begin{align*}
+    \dot{x}_1 &= x_2 \\
+    \dot{x}_2 &= -kx_1 - dx_2^3
+  \end{align*}
+  \indent We can also rewrite the Lyapunov candidate function as
+  \begin{align*}
+    V(x_1,x_2) = \frac{1}{2}(kx_1^2 + x_2^2)
+  \end{align*}
+  We can see that $V(x_1,x_2)$ is globally positive definite and radially
+  unbounded. Now, we want to look at the behavior of $\dot{V}(x_1,x_2)$
+  \begin{align*}
+    V(x_1,x_2) &= \frac{1}{2}(kx_1^2 + x_2^2) \\
+    \dot{V}(x_1,x_2) &= kx_1\dot{x}_1 + x_2\dot{x}_2 \\
+    \dot{V}(x_1,x_2) &= \cancelto{}{kx_1x_2} + x_2(\cancelto{}{-kx_1} - dx_2^3) \\
+    \dot{V}(x_1,x_2) &= -dx_2^4 \\
+  \end{align*}
+
+  This result shows us that $\dot{V}(x_1,x_2) \geq 0$  and is therefore globally positive semi
+  definite. Since $V(x_1,x_2)$ is globally positive definite and radially
+  unbounded, we can say that our system is globally stable. \newline
+
+  To test if we can further define our system as globally asymptotically stable,
+  we turn to LaSalle's Theorem. LaSalle's Theorem states that if a system is
+  locally/globally stable AND the set $\dot{V}(\vec{x})=\vec{0}$ contains no
+  trajectories other than $\vec{x}=\vec{0}$, then we can say that the system is
+  locally/globally asymptotically stable.
+
+  \begin{align*}
+    \dot{V}(x_1,x_2) &= -dx_2^4 \\
+  \end{align*}
+
+  Therefore, if $\dot{V}=0$, then $x_2=0 \hspace{1mm} \forall \hspace{1mm} t
+  \implies \dot{x}_2=0 \hspace{1mm} \forall \hspace{1mm} t$
+
+  \begin{align*}
+    \dot{x}_2 = -kx_1 - \cancelto{0}{dx_2^3} = 0 \\
+    \implies x_1 = 0
+  \end{align*}
+
+  Therefore we have shown that $\dot{V}(\vec{x})=\vec{0}$ only when
+  $\vec{x}=\vec{0}$. This satisfies Lasalle's Theorem and we have show that
+  \textbf{our system is globally asymptotically stable}.
+
+  \newpage
+
+  \section{Problem 3}
+
+  For the system
+  \begin{align*}
+    \dot{x}_1 &= -x_1^3 - x_2 \\
+    \dot{x}_2 &= x_1^5
+  \end{align*}
+  \begin{enumerate}[label=(\alph*)]
+    \item Find the three equilibrium points of the system
+    \item Find the linearized system about these points
+    \item What stability information can you obtain for the nonlinear system
+      from the linearization in part (b)?
+    \item Utilize a Lyapunov function $V(x) = \alpha x_1^6 + \beta x_2^2$. What
+        stability information do I get?
+    \item Can you strengthen the stability assessment in part (d)?
+  \end{enumerate}
+
+  \noindent \textit{Solution} \newline \newline
+
+  (a) The equilibrium points of the system are found by setting
+  $\vec{\dot{x}}=\vec{0}$.
+  \begin{align*}
+    \dot{x}_2 &= x_1^5 = 0 \implies x_1=0 \\
+    \dot{x}_1 &= \cancelto{0}{-x_1^3} - x_2 = 0 \implies x_2=0
+  \end{align*}
+
+  This implies that there is only one equilibrium point and it is located at
+  (0,0). This is supported by the phase plane of the system shown below \newline
+
+  \begin{center}
+    \includegraphics[height=60mm]{HW5-3.png}
+  \end{center}
+
+  (b) 
+
+  \newpage
+
+  \section{Problem 4}
+
+  Determine which of the following functions of $(x_1, x_2)$ are globally
+  positive definite: \newline
+  To do this, we put V(x) in the form $V(x)=x^TPx$.
+  \begin{enumerate}[label=(\roman*)]
+   \item $V(x) = 2x_1^2 + 4x_2^2 - x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                2 & -\frac{1}{2} \\
+                -\frac{1}{2} & 4
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                2 & -\frac{1}{2} \\
+                -\frac{1}{2} & 4
+              \end{bmatrix}$ is positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is globally positive definite} \newline
+
+    \item $V(x) = 2x_1^2 + 4x_2^2 - 8x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                2 & -4 \\
+                -4 & 4
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                2 & -4 \\
+                -4 & 4
+              \end{bmatrix}$ is not positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is not globally positive definite} \newline
+
+    \item $V(x) = x_1^2 + x_2^2 - x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                1 & -\frac{1}{2} \\
+                -\frac{1}{2} & 1
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                1 & -\frac{1}{2} \\
+                -\frac{1}{2} & 1
+              \end{bmatrix}$ is positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is globally positive definite} \newline
+ 
+   \item $V(x) = x_1^2 + x_2^2 - 2x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                1 & -1 \\
+                -1 & 1
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                1 & -1 \\
+                -1 & 1
+              \end{bmatrix}$ is not positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is not globally positive definite} \newline
+ 
+ 
+   \item $V(x) = 2x_1^2 - 4x_2^2 + x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                2 & \frac{1}{2} \\
+                \frac{1}{2} & -4 
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                2 & \frac{1}{2} \\
+                \frac{1}{2} & -4
+              \end{bmatrix}$ is not positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is not globally positive definite} \newline
+ 
+   \item $V(x) = 2x_1^2 + 4x_2^2 + x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                2 & \frac{1}{2} \\
+                \frac{1}{2} & 4 
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                2 & \frac{1}{2} \\
+                \frac{1}{2} & 4
+              \end{bmatrix}$ is positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is globally positive definite} \newline
+ 
+   \item $V(x) = x_1^2 + x_2^2 + 2x_1x_2$ \newline \newline
+       $V(x) = \begin{bmatrix}
+                x_1 & x_2
+              \end{bmatrix}
+              \begin{bmatrix}
+                1 & 1 \\
+                1 & 1 
+              \end{bmatrix}
+              \begin{bmatrix}
+                x_1 \\
+                x_2
+              \end{bmatrix}$
+      The matrix $\begin{bmatrix}
+                1 & 1 \\
+                1 & 1
+              \end{bmatrix}$ is not positive definite \newline \newline
+      $\therefore$ \textbf{V(x) is not globally positive definite} \newline
+ 
+  \end{enumerate}
+
+  \newpage
+
+  \section{Problem 5}
+
+  Consider the linear system
+  \begin{align*}
+    \dot{x}_1 = Ax
+  \end{align*}
+  where
+  \begin{align*}
+    A =
+    \begin{bmatrix}
+      0 & -1 \\
+      1 & -1
+    \end{bmatrix}
+  \end{align*}
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item Compute the eigenvalues of A and verify that the system is
+      asymptotically stable.
+    \item Solve the Lyapunov equation
+      \begin{align*}
+        A^TP + PA + Q = 0
+      \end{align*}
+      for Q=I and verify that the solution is positive definite.
+  \end{enumerate}
+
+  \noindent \textit{Solution} \newline \newline
+
+  (a) The eigenvalues are calculated by setting $|\lambda I-A|=0$
+
+  \begin{align*}
+    |\lambda I-A|=0 \\
+    det(\begin{bmatrix}
+      \lambda & 0 \\
+      0 & \lambda
+    \end{bmatrix} -
+    \begin{bmatrix}
+      0 & -1 \\
+      1 & -1
+    \end{bmatrix}) = 0 \\
+    \begin{vmatrix}
+      \lambda & 1 \\
+      -1 & \lambda + 1
+    \end{vmatrix} = 0 \\
+    \lambda^2 + \lambda + 1 = 0 \\
+    \lambda = -\frac{1}{2} \pm \frac{\sqrt{3}}{2}
+  \end{align*}
+
+  Because the eigenvalues of A have negative real parts, we know that the system
+  is asymptotically stable. \newline \newline
+
+  (b)
+  \begin{align*}
+    A^TP + PA + Q = 0 \\
+    \begin{bmatrix}
+      0 & 1 \\
+      -1 &-1
+    \end{bmatrix}
+    \begin{bmatrix}
+      P_{11} & P_{12} \\
+      P_{12} & P_{22}
+    \end{bmatrix} +
+    \begin{bmatrix}
+      P_{11} & P_{12} \\
+      P_{12} & P_{22}
+    \end{bmatrix}
+    \begin{bmatrix}
+      0 & -1 \\
+      1 &-1
+    \end{bmatrix}+
+    \begin{bmatrix}
+      1 & 0 \\
+      0 & 1
+    \end{bmatrix} =
+    \begin{bmatrix}
+      0 & 0 \\
+      0 & 0
+    \end{bmatrix} \\
+    \cancelto{0}{0*P_{11}}+1*P_{12} + \cancelto{0}{P_{11}*0}+P_{12}(1) + 1 = 0 \\
+    \implies P_{12} = -\frac{1}{2} \\
+    \cancelto{0}{0*P_{12}}+1*P_{22} + P_{11}(-1)+P_{12}(-1) + 0 = 0 \\a
+    P_{22}+\frac{1}{2} = P_{11} \\
+    (-1)*P_{11}+(-1)P_{12} + \cancelto{0}{P_{12}*0}+P_{22}(1) + 0 = 0 \\
+    (-1)*P_{12}+(-1)P_{22} + P_{12}(-1)+P_{22}(-1) + 1 = 0\\
+    \frac{1}{2}-P_{22} + \frac{1}{2} - P_{22} + 1 = 0 \\
+    \implies P_{22}=1 \\
+    1+\frac{1}{2} = P_{11} \implies P_{11} = 1.5
+  \end{align*}
+
+  We can see $P_{11}=1.5, P_{12}=0.5, P_{22}=1$.
+  $P=\begin{bmatrix}
+       1.5 & -0.5 \\
+       -0.5 & 1
+     \end{bmatrix}$
+
+  We can see that this matrix P is positive definite by evaluating that all the
+  principal minors are positive.
+
+   
+
+    
+ 
+\end{document}
+
