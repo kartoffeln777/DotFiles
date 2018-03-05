@@ -1,0 +1,8 @@
+[user]
+	name = kartoffeln777
+	email = kartoffeln777@gmail.com
+[alias]
+[log]
+  date = relative
+[format]
+  pretty = format:%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s
